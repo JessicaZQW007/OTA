@@ -22,7 +22,7 @@ public class EchoServer {
             ServerBootstrap sb = new ServerBootstrap();
             sb.group(group)
                     .channel(NioServerSocketChannel.class)
-                    .localAddress(8014)//
+                    .localAddress(8088)//
                     .childHandler(new ChannelInitializer<SocketChannel>() {
 
                         @Override
