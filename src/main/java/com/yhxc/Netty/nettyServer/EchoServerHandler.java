@@ -1,9 +1,6 @@
 package com.yhxc.Netty.nettyServer;
 
-import com.yhxc.Netty.Util.SpringContextHolder;
 import com.yhxc.Netty.Util.resolveMessage;
-import com.yhxc.Netty.entityTwo.ReportCycle;
-import com.yhxc.Netty.serviceTwo.ReportCycleAirService;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -103,12 +100,6 @@ public class EchoServerHandler extends SimpleChannelInboundHandler<ByteBuf> {
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
         if (!channel.isActive()) {
-            ReportCycleAirService reportcycleairservice = SpringContextHolder.getBean(ReportCycleAirService.class);
-            ReportCycle reportcycle = new ReportCycle();
-            reportcycle.setDecveId( NettyChannelMap.getDecveId((SocketChannel) ctx.channel()));
-            reportcycle.setResult("离线");
-            reportcycle.setDate(format.format(new Date()));
-            reportcycleairservice.save(reportcycle);
             NettyChannelMap.remove((SocketChannel) ctx.channel());
             ctx.close().sync();
         } else {

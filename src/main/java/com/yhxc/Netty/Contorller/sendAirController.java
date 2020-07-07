@@ -1,31 +1,16 @@
 package com.yhxc.Netty.Contorller;
 
-import com.yhxc.Netty.Service.RespondsconfigService;
 import com.yhxc.Netty.Util.Transcoding;
-import com.yhxc.Netty.entity.RespondsConfig;
-import com.yhxc.Netty.entityTwo.ResponseRelay;
-import com.yhxc.Netty.entityTwo.commandStatus;
 import com.yhxc.Netty.nettyServer.NettyChannelMap;
-import com.yhxc.Netty.serviceTwo.RespondsRelayAirService;
-import com.yhxc.Netty.serviceTwo.commandStatusAirService;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.socket.SocketChannel;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static com.yhxc.Netty.Util.FileUtil.scanFile;
@@ -38,7 +23,6 @@ import static com.yhxc.Netty.Util.FileUtil.scanFile;
 @Controller
 @Api(value = "共享空调")
 public class sendAirController {
-
     static int count = 0;
     public void count(){
         File file = new File("c:/OTA");
