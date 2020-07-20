@@ -1,40 +1,42 @@
 package com.yhxc.Netty.Contorller;
+
 import com.yhxc.Netty.Util.Transcoding;
-        import com.yhxc.Netty.nettyServer.NettyChannelMap;
-        import io.netty.buffer.ByteBuf;
-        import io.netty.buffer.Unpooled;
-        import io.netty.channel.socket.SocketChannel;
-        import io.swagger.annotations.Api;
-        import org.springframework.stereotype.Controller;
-        import org.springframework.web.bind.annotation.*;
+import com.yhxc.Netty.nettyServer.NettyChannelMap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.socket.SocketChannel;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-        import java.io.*;
-        import java.util.ArrayList;
-        import java.util.List;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
-        import static com.yhxc.Netty.Util.FileUtil.scanFile;
+import static com.yhxc.Netty.Util.FileUtil.scanFile;
 
 /**
  * @Author: 张权威
- * @Date: 2020/4/14 10:52
+ * @Date: 2020/7/20 14:33
  */
-@RequestMapping("Air")
+@RequestMapping("Light")
 @Controller
-public class sendAirController {
-    static int count = 0;
-    public void count(){
-        File file = new File("c:/OTAAir");
-        List<String> list = new ArrayList<String>();
-        String fileName = "空调";
-        scanFile(file, fileName, list);
-        count = list.size();
-        System.out.println("查找文件数量"+count);
-    }
 
+public class sendLightController {
+        static int count = 0;
+        public void count(){
+            File file = new File("c:/OTALight");
+            List<String> list = new ArrayList<String>();
+            String fileName = "照明";
+            scanFile(file, fileName, list);
+            count = list.size();
+            System.out.println("查找文件数量"+count);
+        }
     @ResponseBody
     @PostMapping(value = "/ota")
     public String OTA(String deviceID, int num) throws Exception {
-        String source = "C:/OTAAir/空调" + num + ".bin";
+        String source = "C:/OTALight/照明" + num + ".bin";
         File sourceFile = new File(source);
         InputStream fis = new FileInputStream(sourceFile);
         BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
@@ -49,7 +51,7 @@ public class sendAirController {
         buffer2 = byteArrayOutputStream.toByteArray();
         if (num == 0) {
             byte[] a = new byte[4];
-            a[0] = (byte) 0xAA;
+            a[0] = (byte) 0xAB;
             a[1] = 0x01;
             a[2] = 0x00;
             a[3] = 0x00;
@@ -63,7 +65,7 @@ public class sendAirController {
             schannel.writeAndFlush(sb);
         } else {
             byte[] c = new byte[4];
-            c[0] = (byte) 0xAA;
+            c[0] = (byte) 0xAB;
             c[1] = (byte) Integer.parseInt(num + "");
             c[2] = (byte) ((buffer2.length >> 8) & 0xff);
             c[3] = (byte) (buffer2.length & 0xff);

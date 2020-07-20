@@ -1,17 +1,19 @@
 package com.yhxc.Netty.Decode;
 
 import com.yhxc.Netty.Contorller.sendAirController;
+import com.yhxc.Netty.Contorller.sendLightController;
 import com.yhxc.Netty.Util.Transcoding;
 import io.netty.channel.ChannelHandlerContext;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author: 张权威
- * @Date: 2020/4/14 10:43
+ * @Date: 2020/7/20 14:29
  */
-public class decodeAir {
-    sendAirController send = new sendAirController();
+public class decodeLight {
+    sendLightController send = new sendLightController();
 
     public void ota(String hexstr, ChannelHandlerContext ctx) {
         Map<String, String> result = new HashMap<>();

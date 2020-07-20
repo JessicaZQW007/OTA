@@ -11,7 +11,6 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class EchoServerHandler extends SimpleChannelInboundHandler<ByteBuf> {
 

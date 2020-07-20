@@ -1,6 +1,7 @@
 package com.yhxc.Netty.Util;
 
 import com.yhxc.Netty.Decode.decodeAir;
+import com.yhxc.Netty.Decode.decodeLight;
 import com.yhxc.Netty.nettyServer.NettyChannelMap;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -33,18 +34,20 @@ public class resolveMessage {
         System.out.println(hexstr);
         String type2 = hexstr.substring(0, 2);
         String decveId = "";
-        if("AA".equals(type2)){
+        if("AA".equals(type2)||"AB".equals(type2)){
             decveId = Transcoding.AsciiDecode(hexstr.substring(8, 38));
             NettyChannelMap.add(decveId, (SocketChannel) ctx.channel());
-
         }else {
              decveId = Transcoding.AsciiDecode(hexstr.substring(6, 36));
             NettyChannelMap.add(decveId, (SocketChannel) ctx.channel());
         }
-
         decodeAir air = new decodeAir();
+        decodeLight light = new decodeLight();
         if("AA".equals(type2)) {
             air.ota(hexstr, ctx);
+        }
+        if("AB".equals(type2)) {
+            light.ota(hexstr, ctx);
         }
     }
 }
